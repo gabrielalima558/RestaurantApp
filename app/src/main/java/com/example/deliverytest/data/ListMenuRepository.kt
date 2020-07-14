@@ -6,7 +6,7 @@ import com.example.deliverytest.db.DeliveryDao
 import com.example.deliverytest.model.ItemsEntity
 import com.example.deliverytest.model.Menu
 
-class ListMenuRepository(private val api: DeliveryApi, private val deliveryDao: DeliveryDao) {
+class ListMenuRepository(private val api: DeliveryApi, private val deliveryDao: DeliveryDao?) {
 
     val menu = MutableLiveData<List<Menu>>()
 
@@ -17,9 +17,9 @@ class ListMenuRepository(private val api: DeliveryApi, private val deliveryDao: 
     }
 
 
-    fun setItemsDb(itemsEntity: ItemsEntity) = deliveryDao.saveItem(itemsEntity)
+    fun setItemsDb(itemsEntity: ItemsEntity) = deliveryDao!!.saveItem(itemsEntity)
 
-    fun getItemsDb() = deliveryDao.listItems()
+    fun getItemsDb() = deliveryDao!!.listItems()
 
 
 }

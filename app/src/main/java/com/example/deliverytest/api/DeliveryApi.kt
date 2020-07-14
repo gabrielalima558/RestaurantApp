@@ -8,12 +8,12 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import retrofit2.Retrofit
 
-class DeliveryApi(retrofit: Retrofit) {
+open class DeliveryApi(retrofit: Retrofit) {
     private val service: DeliveryService by lazy {
         retrofit.create(DeliveryService::class.java)
     }
 
-    fun callMenu(callback: (List<Menu>) -> Unit){
+    open fun callMenu(callback: (List<Menu>) -> Unit) {
         val observable = service.getMenuRestaurant()
         observable
             .flatMap { results -> Observable.fromArray(results) }
