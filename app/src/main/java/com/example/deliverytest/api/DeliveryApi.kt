@@ -28,7 +28,7 @@ open class DeliveryApi(retrofit: Retrofit) {
             )
     }
 
-    fun callRestaurant(callback: (Restaurant) -> Unit){
+    open fun callRestaurant(callback: (Restaurant) -> Unit){
         val observable = service.getRestaurant()
         observable
             .flatMap { results -> Observable.fromArray(results) }

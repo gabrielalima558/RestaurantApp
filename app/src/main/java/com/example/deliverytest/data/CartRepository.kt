@@ -6,7 +6,7 @@ import com.example.deliverytest.db.DeliveryDao
 import com.example.deliverytest.model.ItemsEntity
 import com.example.deliverytest.model.Restaurant
 
-class CartRepository(private val api: DeliveryApi, private val deliveryDao: DeliveryDao) {
+class CartRepository(private val api: DeliveryApi, private val deliveryDao: DeliveryDao?) {
 
     val restaurant = MutableLiveData<Restaurant>()
 
@@ -15,7 +15,7 @@ class CartRepository(private val api: DeliveryApi, private val deliveryDao: Deli
             restaurant.postValue(restaurantRes) }
     }
 
-    fun getItemsDb() = deliveryDao.listItems()
+    fun getItemsDb() = deliveryDao!!.listItems()
 
-    fun deleteItemsDb(itemsEntity: ItemsEntity) = deliveryDao.deleteItem(itemsEntity)
+    fun deleteItemsDb(itemsEntity: ItemsEntity) = deliveryDao!!.deleteItem(itemsEntity)
 }

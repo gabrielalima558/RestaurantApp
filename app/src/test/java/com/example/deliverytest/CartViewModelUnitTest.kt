@@ -3,11 +3,9 @@ package com.example.deliverytest
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.Observer
 import com.example.deliverytest.api.DeliveryApi
-import com.example.deliverytest.data.ListMenuRepository
-import com.example.deliverytest.model.Items
-import com.example.deliverytest.model.ItemsEntity
-import com.example.deliverytest.model.Menu
-import com.example.deliverytest.viewmodel.ListMenuViewModel
+import com.example.deliverytest.data.CartRepository
+import com.example.deliverytest.model.Restaurant
+import com.example.deliverytest.viewmodel.CartViewModel
 import com.google.gson.GsonBuilder
 import com.nhaarman.mockitokotlin2.verify
 import okhttp3.OkHttpClient
@@ -22,13 +20,12 @@ import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 
-//Para inicializar o mockito
 @RunWith(MockitoJUnitRunner::class)
-class ListMenuViewModelUnitTest {
+class CartViewModelUnitTest {
+
     @get:Rule
     val rule = InstantTaskExecutorRule()
 
-    //cria o mock do retrofit para a DeliveryApi
     private var mockWebServer: MockWebServer
     private val logging = HttpLoggingInterceptor()
     private val httpClient = OkHttpClient.Builder()
@@ -39,6 +36,7 @@ class ListMenuViewModelUnitTest {
         httpClient.addInterceptor(logging)
         mockWebServer = MockWebServer()
     }
+
     private val retrofit = Retrofit.Builder()
         .baseUrl(mockWebServer.url("/").toString())
         .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
@@ -47,36 +45,31 @@ class ListMenuViewModelUnitTest {
         .build()
 
     @Mock
-    private lateinit var menuObserver: Observer<List<Menu>>
+    private lateinit var restaurantObserver: Observer<Restaurant>
 
-    private lateinit var viewModel: ListMenuViewModel
+    private lateinit var viewModel: CartViewModel
 
     @Test
-    fun `when getMenu api call is success recive result`() {
+    fun `when getRestaurant api call is success recive result`() {
         //Arrange
-        val menuList = listOf(
-            Menu(
-                2,
-                "Lanches",
-                listOf(Items(2, "X-Tudo", "Lanche grande", 10.0, "IMAGE"))
-            )
-        )
+        val restaurant = Restaurant(0, "Pé de Fava", 50.0, 50)
 
-        val resultSuccessApi = MockApi(menuList, retrofit)
-        val resultSuccess = ListMenuRepository(resultSuccessApi,null)
-        viewModel = ListMenuViewModel(resultSuccess)
-        viewModel.menu().observeForever(menuObserver)
+        val resultSuccessApi = MockApiRestaurant(restaurant, retrofit)
+        val resultSuccess = CartRepository(resultSuccessApi, null)
+        viewModel = CartViewModel(resultSuccess)
+        viewModel.restaurant().observeForever(restaurantObserver)
         //Act
-        viewModel.getMenu()
+        viewModel.getRestaurant()
         //Assert
-        verify(menuObserver).onChanged(menuList)
+        verify(restaurantObserver).onChanged(restaurant)
     }
 
 }
 
-class MockApi(val result: List<Menu>, retrofit: Retrofit) : DeliveryApi(retrofit) {
-    override fun callMenu(callback: (result: List<Menu>) -> Unit) {
+class MockApiRestaurant(val result: Restaurant, retrofit: Retrofit) : DeliveryApi(retrofit) {
+
+    override fun callRestaurant(callback: (Restaurant) -> Unit) {
         callback(result)
     }
-}
 
+}

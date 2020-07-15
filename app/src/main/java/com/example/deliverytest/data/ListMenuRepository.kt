@@ -6,12 +6,12 @@ import com.example.deliverytest.db.DeliveryDao
 import com.example.deliverytest.model.ItemsEntity
 import com.example.deliverytest.model.Menu
 
-class ListMenuRepository(private val api: DeliveryApi, private val deliveryDao: DeliveryDao?) {
+class ListMenuRepository(private val api: DeliveryApi?, private val deliveryDao: DeliveryDao?) {
 
     val menu = MutableLiveData<List<Menu>>()
 
     fun getMenu() {
-        api.callMenu { menuRes ->
+        api!!.callMenu { menuRes ->
             menu.postValue(menuRes)
         }
     }
