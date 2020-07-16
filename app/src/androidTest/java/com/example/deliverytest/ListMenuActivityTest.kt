@@ -20,7 +20,7 @@ class ListMenuActivityTest {
     val rule = ActivityTestRule<ListMenuActivity>(ListMenuActivity::class.java)
 
     @Test
-    fun shouldShowBtnItems_whenAddItemFromListToChart() {
+    fun shouldShowBtnItems_whenAddItemToChart() {
         onView(withId(R.id.recyclerView1)).perform(
             RecyclerViewActions.actionOnItemAtPosition<ItemsListItemViewHolder>(
                 0,
