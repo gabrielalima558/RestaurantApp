@@ -21,6 +21,7 @@ class ListMenuActivityTest {
 
     @Test
     fun shouldShowBtnItems_whenAddItemToChart() {
+        Thread.sleep(5000)
         onView(withId(R.id.recyclerView1)).perform(
             RecyclerViewActions.actionOnItemAtPosition<ItemsListItemViewHolder>(
                 0,
