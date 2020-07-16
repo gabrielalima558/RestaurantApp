@@ -26,7 +26,7 @@ class ListMenuActivityTest {
                 0,
                 MyViewAction.clickChildViewWithId(R.id.add_cart)
             )
-        );
+        )
         onView(withId(R.id.btn_items)).check(matches(isDisplayed()))
     }
 }
