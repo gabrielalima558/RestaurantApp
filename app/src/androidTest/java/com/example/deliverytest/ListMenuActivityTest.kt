@@ -1,6 +1,7 @@
 package com.example.deliverytest
 
 import androidx.test.espresso.Espresso.onView
+import androidx.test.espresso.action.ViewActions.click
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.contrib.RecyclerViewActions
 import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
@@ -29,5 +30,10 @@ class ListMenuActivityTest {
             )
         )
         onView(withId(R.id.btn_items)).check(matches(isDisplayed()))
+    }
+
+    @Test
+    fun shouldOpenCartActivity_whenClickItemButton(){
+        onView(withId(R.id.btn_items)).check(matches(isDisplayed())).perform(click())
     }
 }
