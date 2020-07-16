@@ -74,7 +74,7 @@ class ListMenuViewModelUnitTest {
 
 }
 
-class MockApi(val result: List<Menu>, retrofit: Retrofit) : DeliveryApi(retrofit) {
+class MockApi(private val result: List<Menu>, retrofit: Retrofit) : DeliveryApi(retrofit) {
     override fun callMenu(callback: (result: List<Menu>) -> Unit) {
         callback(result)
     }

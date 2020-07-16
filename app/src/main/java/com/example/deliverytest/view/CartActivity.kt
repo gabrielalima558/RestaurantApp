@@ -14,7 +14,6 @@ import com.example.deliverytest.view.itemscartadpt.ItemsCartListAdapter
 import com.example.deliverytest.viewmodel.CartViewModel
 import com.example.deliverytest.viewmodel.ViewModelFactory
 import kotlinx.android.synthetic.main.activity_cart.*
-import kotlinx.android.synthetic.main.activity_main.recyclerView
 
 class CartActivity : AppCompatActivity() {
     private val viewModel: CartViewModel by lazy {

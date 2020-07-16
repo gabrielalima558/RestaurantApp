@@ -66,7 +66,7 @@ class CartViewModelUnitTest {
 
 }
 
-class MockApiRestaurant(val result: Restaurant, retrofit: Retrofit) : DeliveryApi(retrofit) {
+class MockApiRestaurant(private val result: Restaurant, retrofit: Retrofit) : DeliveryApi(retrofit) {
 
     override fun callRestaurant(callback: (Restaurant) -> Unit) {
         callback(result)

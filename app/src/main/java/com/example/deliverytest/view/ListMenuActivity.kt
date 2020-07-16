@@ -2,7 +2,6 @@ package com.example.deliverytest.view
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
@@ -13,7 +12,6 @@ import com.example.deliverytest.view.menuadpt.MenuListAdapter
 import com.example.deliverytest.viewmodel.ListMenuViewModel
 import com.example.deliverytest.viewmodel.ViewModelFactory
 import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.activity_main.recyclerView
 
 class ListMenuActivity : AppCompatActivity() {
     private val viewModel: ListMenuViewModel by lazy {
@@ -30,15 +28,15 @@ class ListMenuActivity : AppCompatActivity() {
         super.onResume()
 
         adapter = MenuListAdapter(viewModel)
-        recyclerView.adapter = adapter
-        recyclerView.layoutManager = LinearLayoutManager(this)
+        recyclerView1.adapter = adapter
+        recyclerView1.layoutManager = LinearLayoutManager(this)
         viewModel.getMenu()
         viewModel.menu().observe(this, Observer {
             adapter.menu = it
 
         })
         viewModel.listItems().observe(this, Observer {
-            if(it.isNotEmpty()){
+            if (it.isNotEmpty()) {
                 btn_items.visibility = View.VISIBLE
                 btn_items.text = "Itens " + "(" + it.size + ")"
             }
